@@ -119,8 +119,7 @@ public class WebCamController : MonoBehaviour
     {
         if (!allowPortrait && width < height) swap(ref width, ref height);
         float r = (float)width / height;
-        string rs = r.ToString("F2");
 
-        return rs.Substring(0, 4);
+        return r.ToString("F2");
     }
 }
