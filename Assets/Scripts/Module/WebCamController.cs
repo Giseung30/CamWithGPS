@@ -8,7 +8,7 @@ public class WebCamController : MonoBehaviour
     public Vector2 requestedRatio;
     public int requestedFPS;
 
-    [Header("Module")]
+    [Header("Component")]
     [SerializeField] private RawImage webCamRawImage;
     private RectTransform webCamRect;
 
@@ -28,26 +28,28 @@ public class WebCamController : MonoBehaviour
     /** Start **/
     private void Start()
     {
-        createWebCam();
+        StartWebCam();
     }
-    private void createWebCam(string permissionName = null)
+    public void StartWebCam(string permissionName = null)
     {
         if (Permission.HasUserAuthorizedPermission(Permission.Camera))
-            setWebCamImage();
+            createWebCamTexture();
         else
         {
             PermissionCallbacks permissionCallbacks = new();
-            permissionCallbacks.PermissionGranted += createWebCam;
+            permissionCallbacks.PermissionGranted += StartWebCam;
             Permission.RequestUserPermission(Permission.Camera, permissionCallbacks);
         }
     }
-    private void setWebCamImage()
+    public void StopWebCam()
     {
-        if (webCamTexture)
-        {
-            Destroy(webCamTexture);
-            webCamTexture = null;
-        }
+        destroyWebCamTexture();
+    }
+
+    /** WebCamTexture **/
+    private void createWebCamTexture()
+    {
+        destroyWebCamTexture();
 
         WebCamDevice[] webCamDevices = WebCamTexture.devices;
         if (webCamDevices.Length == 0) return;
@@ -83,6 +85,16 @@ public class WebCamController : MonoBehaviour
 
             webCamRawImage.texture = webCamTexture;
         }
+    }
+    private void destroyWebCamTexture()
+    {
+        if (webCamTexture)
+        {
+            Destroy(webCamTexture);
+            webCamTexture = null;
+        }
+
+        webCamRawImage.texture = null;
     }
 
     /** Update **/
