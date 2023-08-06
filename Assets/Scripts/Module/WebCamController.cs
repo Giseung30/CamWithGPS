@@ -30,23 +30,18 @@ public class WebCamController : MonoBehaviour
     {
         createWebCam();
     }
-    private void createWebCam()
+    private void createWebCam(string permissionName = null)
     {
         if (Permission.HasUserAuthorizedPermission(Permission.Camera))
             setWebCamImage();
         else
         {
             PermissionCallbacks permissionCallbacks = new();
-            permissionCallbacks.PermissionGranted += setWebCamImage;
+            permissionCallbacks.PermissionGranted += createWebCam;
             Permission.RequestUserPermission(Permission.Camera, permissionCallbacks);
         }
     }
-
-    private void setWebCamImage(string permissionName = null)
-    {
-        setWebCamImage(requestedRatio, requestedFPS);
-    }
-    private void setWebCamImage(Vector2 requestedRatio, int requestedFPS)
+    private void setWebCamImage()
     {
         if (webCamTexture)
         {
