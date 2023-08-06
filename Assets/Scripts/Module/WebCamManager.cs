@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Android;
 
-public class WebCamController : MonoBehaviour
+public class WebCamManager : MonoBehaviour
 {
     [Header("Setting")]
     public Vector2 requestedRatio;
@@ -15,7 +14,7 @@ public class WebCamController : MonoBehaviour
     // Cache
     private WebCamTexture _webCamTexture;
 
-    /** Awake **/
+    //__________________________________________________ Awake
     private void Awake()
     {
         initialize();
@@ -25,28 +24,21 @@ public class WebCamController : MonoBehaviour
         _webCamRect = webCamRawImage.GetComponent<RectTransform>();
     }
 
-    /** Start **/
+    //__________________________________________________ Start
     private void Start()
     {
         StartWebCam();
     }
-    public void StartWebCam(string permissionName = null)
+    public void StartWebCam()
     {
-        if (Permission.HasUserAuthorizedPermission(Permission.Camera))
-            createWebCamTexture();
-        else
-        {
-            PermissionCallbacks permissionCallbacks = new();
-            permissionCallbacks.PermissionGranted += StartWebCam;
-            Permission.RequestUserPermission(Permission.Camera, permissionCallbacks);
-        }
+        createWebCamTexture();
     }
     public void StopWebCam()
     {
         destroyWebCamTexture();
     }
 
-    /** WebCamTexture **/
+    //__________________________________________________ WebCamTexture
     private void createWebCamTexture()
     {
         destroyWebCamTexture();
@@ -97,7 +89,7 @@ public class WebCamController : MonoBehaviour
         webCamRawImage.texture = null;
     }
 
-    /** Update **/
+    //__________________________________________________ Update
     private void Update()
     {
         updateWebCamImage();
@@ -115,7 +107,7 @@ public class WebCamController : MonoBehaviour
         _webCamRect.sizeDelta = new Vector2(width, height);
     }
 
-    /** Util **/
+    //__________________________________________________ Util
     private void swap<T>(ref T a, ref T b)
     {
         T tmp = a;

@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.Android;
 
-public class GPSController : MonoBehaviour
+public class GPSManager : MonoBehaviour
 {
     [Header("Setting")]
     public bool onStartGPS;
@@ -9,7 +8,7 @@ public class GPSController : MonoBehaviour
     // Cache
     private LocationService _locationService;
 
-    /** Awake **/
+    //__________________________________________________ Awake
     private void Awake()
     {
         initialize();
@@ -19,25 +18,16 @@ public class GPSController : MonoBehaviour
         _locationService = Input.location;
     }
 
-    /** Start */
+    //__________________________________________________ Start
     private void Start()
     {
         if(onStartGPS) StartGPS();
     }
 
-    /** GPS **/
-    public void StartGPS(string permissionName = null)
+    //__________________________________________________ GPS
+    public void StartGPS()
     {
-        if (Permission.HasUserAuthorizedPermission(Permission.FineLocation))
-        {
-            setLocationService(true);
-        }
-        else
-        {
-            PermissionCallbacks permissionCallbacks = new();
-            permissionCallbacks.PermissionGranted += StartGPS;
-            Permission.RequestUserPermission(Permission.FineLocation, permissionCallbacks);
-        }
+        setLocationService(true);
     }
     public void StopGPS()
     {
@@ -50,7 +40,7 @@ public class GPSController : MonoBehaviour
         else _locationService.Stop();
     }
 
-    /** Util **/
+    //__________________________________________________ Util
     public bool GetGPSLocation(out LocationServiceStatus status, out float latitude, out float longitude)
     {
         latitude = longitude = default;
