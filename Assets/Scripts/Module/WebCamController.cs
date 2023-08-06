@@ -10,10 +10,10 @@ public class WebCamController : MonoBehaviour
 
     [Header("Component")]
     [SerializeField] private RawImage webCamRawImage;
-    private RectTransform webCamRect;
+    private RectTransform _webCamRect;
 
     // Cache
-    private WebCamTexture webCamTexture;
+    private WebCamTexture _webCamTexture;
 
     /** Awake **/
     private void Awake()
@@ -22,7 +22,7 @@ public class WebCamController : MonoBehaviour
     }
     private void initialize()
     {
-        webCamRect = webCamRawImage.GetComponent<RectTransform>();
+        _webCamRect = webCamRawImage.GetComponent<RectTransform>();
     }
 
     /** Start **/
@@ -79,19 +79,19 @@ public class WebCamController : MonoBehaviour
                 }
             }
 
-            webCamTexture = new WebCamTexture(webCamDevices[backCamIndex].name, requestedWidth, requestedHeight, requestedFPS);
-            webCamTexture.filterMode = FilterMode.Trilinear;
-            webCamTexture.Play();
+            _webCamTexture = new WebCamTexture(webCamDevices[backCamIndex].name, requestedWidth, requestedHeight, requestedFPS);
+            _webCamTexture.filterMode = FilterMode.Trilinear;
+            _webCamTexture.Play();
 
-            webCamRawImage.texture = webCamTexture;
+            webCamRawImage.texture = _webCamTexture;
         }
     }
     private void destroyWebCamTexture()
     {
-        if (webCamTexture)
+        if (_webCamTexture)
         {
-            Destroy(webCamTexture);
-            webCamTexture = null;
+            Destroy(_webCamTexture);
+            _webCamTexture = null;
         }
 
         webCamRawImage.texture = null;
@@ -104,15 +104,15 @@ public class WebCamController : MonoBehaviour
     }
     private void updateWebCamImage()
     {
-        if (!webCamTexture) return;
+        if (!_webCamTexture) return;
 
-        int videoRotAngle = webCamTexture.videoRotationAngle;
-        webCamRect.localEulerAngles = new Vector3(0, 0, -videoRotAngle);
+        int videoRotAngle = _webCamTexture.videoRotationAngle;
+        _webCamRect.localEulerAngles = new Vector3(0, 0, -videoRotAngle);
 
         int width = Definition.screenWidth;
-        int height = Definition.screenWidth * webCamTexture.width / webCamTexture.height;
+        int height = Definition.screenWidth * _webCamTexture.width / _webCamTexture.height;
         if (Mathf.Abs(videoRotAngle) % 180 != 0f) swap(ref width, ref height);
-        webCamRect.sizeDelta = new Vector2(width, height);
+        _webCamRect.sizeDelta = new Vector2(width, height);
     }
 
     /** Util **/
