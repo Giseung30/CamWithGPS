@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GPSManager : MonoBehaviour
+public class GPSModule : MonoBehaviour
 {
     [Header("Setting")]
     public bool onStartGPS;
@@ -21,26 +21,15 @@ public class GPSManager : MonoBehaviour
     //__________________________________________________ Start
     private void Start()
     {
-        if(onStartGPS) StartGPS();
+        if(onStartGPS) SetLocationService(true);
     }
 
     //__________________________________________________ GPS
-    public void StartGPS()
-    {
-        setLocationService(true);
-    }
-    public void StopGPS()
-    {
-        setLocationService(false);
-    }
-
-    private void setLocationService(bool start)
+    public void SetLocationService(bool start)
     {
         if (start) _locationService.Start();
         else _locationService.Stop();
     }
-
-    //__________________________________________________ Util
     public bool GetGPSLocation(out LocationServiceStatus status, out float latitude, out float longitude)
     {
         latitude = longitude = default;

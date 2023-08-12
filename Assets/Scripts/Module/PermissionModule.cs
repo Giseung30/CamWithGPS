@@ -1,9 +1,16 @@
 using UnityEngine;
 using UnityEngine.Android;
+using System;
 using System.Collections.Generic;
 
-public class PermissionManager : MonoBehaviour
+public class PermissionModule : MonoBehaviour
 {
+    [Header("Static")]
+    public static PermissionModule instance;
+
+    [Header("Setting")]
+    public bool onStartRequest;
+
     [Header("Permission")]
     public bool requestCamera;
     public bool requestMicrophone;
@@ -12,11 +19,23 @@ public class PermissionManager : MonoBehaviour
     public bool requestExternalStorageRead;
     public bool requestExternalStorageWrite;
 
+    [Header("Action")]
+    public Action<string> onPermissionGranted;
+
+    //__________________________________________________ Awake
     private void Awake()
     {
-        requestPermissions();
+        instance = this;
     }
-    private void requestPermissions()
+
+    //__________________________________________________ Start
+    private void Start()
+    {
+        if (onStartRequest) RequestPermissions();
+    }
+
+    //__________________________________________________ Permission
+    public void RequestPermissions()
     {
         List<string> permissions = new();
         if (requestCamera) permissions.Add(Permission.Camera);
@@ -26,6 +45,9 @@ public class PermissionManager : MonoBehaviour
         if (requestExternalStorageRead) permissions.Add(Permission.ExternalStorageRead);
         if (requestExternalStorageWrite) permissions.Add(Permission.ExternalStorageWrite);
 
-        Permission.RequestUserPermissions(permissions.ToArray());
+        PermissionCallbacks callbacks = new();
+        callbacks.PermissionGranted += onPermissionGranted;
+
+        Permission.RequestUserPermissions(permissions.ToArray(), callbacks);
     }
 }

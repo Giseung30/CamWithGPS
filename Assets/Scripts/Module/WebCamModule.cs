@@ -1,14 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WebCamManager : MonoBehaviour
+public class WebCamModule : MonoBehaviour
 {
     [Header("Setting")]
     public Vector2 requestedRatio;
     public int requestedFPS;
 
+    public bool onStartWebCam;
+
     [Header("Component")]
-    [SerializeField] private RawImage webCamRawImage;
+    [SerializeField] private RawImage _webCamRawImage;
     private RectTransform _webCamRect;
 
     // Cache
@@ -21,21 +23,18 @@ public class WebCamManager : MonoBehaviour
     }
     private void initialize()
     {
-        _webCamRect = webCamRawImage.GetComponent<RectTransform>();
+        _webCamRect = _webCamRawImage.GetComponent<RectTransform>();
     }
 
     //__________________________________________________ Start
     private void Start()
     {
-        StartWebCam();
+        if (onStartWebCam) SetWebCam(true);
     }
-    public void StartWebCam()
+    public void SetWebCam(bool start)
     {
-        createWebCamTexture();
-    }
-    public void StopWebCam()
-    {
-        destroyWebCamTexture();
+        if(start) createWebCamTexture();
+        else destroyWebCamTexture();
     }
 
     //__________________________________________________ WebCamTexture
@@ -75,7 +74,7 @@ public class WebCamManager : MonoBehaviour
             _webCamTexture.filterMode = FilterMode.Trilinear;
             _webCamTexture.Play();
 
-            webCamRawImage.texture = _webCamTexture;
+            _webCamRawImage.texture = _webCamTexture;
         }
     }
     private void destroyWebCamTexture()
@@ -86,7 +85,7 @@ public class WebCamManager : MonoBehaviour
             _webCamTexture = null;
         }
 
-        webCamRawImage.texture = null;
+        _webCamRawImage.texture = null;
     }
 
     //__________________________________________________ Update
