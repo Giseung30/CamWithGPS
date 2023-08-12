@@ -9,7 +9,7 @@ public class PermissionModule : MonoBehaviour
     public static PermissionModule instance;
 
     [Header("Setting")]
-    public bool onStartRequest;
+    public bool requestOnStart;
 
     [Header("Permission")]
     public bool requestCamera;
@@ -25,13 +25,14 @@ public class PermissionModule : MonoBehaviour
     //__________________________________________________ Awake
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+            instance = this;
     }
 
     //__________________________________________________ Start
     private void Start()
     {
-        if (onStartRequest) RequestPermissions();
+        if (requestOnStart) RequestPermissions();
     }
 
     //__________________________________________________ Permission

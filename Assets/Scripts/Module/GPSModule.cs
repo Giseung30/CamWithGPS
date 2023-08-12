@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class GPSModule : MonoBehaviour
 {
+    [Header("Static")]
+    public static GPSModule instance;
+
     [Header("Setting")]
-    public bool onStartGPS;
+    public bool setOnStart;
 
     // Cache
     private LocationService _locationService;
@@ -11,6 +14,9 @@ public class GPSModule : MonoBehaviour
     //__________________________________________________ Awake
     private void Awake()
     {
+        if (instance == null)
+            instance = this;
+
         initialize();
     }
     private void initialize()
@@ -21,7 +27,7 @@ public class GPSModule : MonoBehaviour
     //__________________________________________________ Start
     private void Start()
     {
-        if(onStartGPS) SetLocationService(true);
+        if(setOnStart) SetLocationService(true);
     }
 
     //__________________________________________________ GPS
