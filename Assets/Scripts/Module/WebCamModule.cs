@@ -66,14 +66,18 @@ public class WebCamModule : MonoBehaviour
         {
             int requestedWidth = Definition.screenWidth;
             int requestedHeight = Definition.screenHeight;
-            for (int i = 0, l = webCamDevices[backCamIndex].availableResolutions.Length; i < l; ++i)
+
+            if (requestedRatio.x > 0f && requestedRatio.y > 0f)
             {
-                Resolution resolution = webCamDevices[backCamIndex].availableResolutions[i];
-                if (getAspectRatio((int)requestedRatio.x, (int)requestedRatio.y).Equals(getAspectRatio(resolution.width, resolution.height)))
+                for (int i = 0, l = webCamDevices[backCamIndex].availableResolutions.Length; i < l; ++i)
                 {
-                    requestedWidth = resolution.width;
-                    requestedHeight = resolution.height;
-                    break;
+                    Resolution resolution = webCamDevices[backCamIndex].availableResolutions[i];
+                    if (getAspectRatio((int)requestedRatio.x, (int)requestedRatio.y).Equals(getAspectRatio(resolution.width, resolution.height)))
+                    {
+                        requestedWidth = resolution.width;
+                        requestedHeight = resolution.height;
+                        break;
+                    }
                 }
             }
 
