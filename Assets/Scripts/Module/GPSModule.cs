@@ -7,6 +7,8 @@ public class GPSModule : MonoBehaviour
 
     [Header("Setting")]
     public bool setOnStart;
+    public float desiredAccuracyInMeters;
+    public float updateDistanceInMeters;
 
     // Cache
     private LocationService _locationService;
@@ -33,7 +35,7 @@ public class GPSModule : MonoBehaviour
     //__________________________________________________ GPS
     public void SetLocationService(bool start)
     {
-        if (start) _locationService.Start();
+        if (start) _locationService.Start(desiredAccuracyInMeters, updateDistanceInMeters);
         else _locationService.Stop();
     }
     public bool GetGPSLocation(out LocationServiceStatus status, out float latitude, out float longitude)
