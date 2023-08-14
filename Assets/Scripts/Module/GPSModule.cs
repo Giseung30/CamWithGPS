@@ -29,7 +29,7 @@ public class GPSModule : MonoBehaviour
     //__________________________________________________ Start
     private void Start()
     {
-        if(setOnStart) SetLocationService(true);
+        if (setOnStart) SetLocationService(true);
     }
 
     //__________________________________________________ GPS
@@ -38,9 +38,9 @@ public class GPSModule : MonoBehaviour
         if (start) _locationService.Start(desiredAccuracyInMeters, updateDistanceInMeters);
         else _locationService.Stop();
     }
-    public bool GetGPSLocation(out LocationServiceStatus status, out float latitude, out float longitude)
+    public bool GetGPSLocation(out LocationServiceStatus status, out LocationInfo locationInfo)
     {
-        latitude = longitude = default;
+        locationInfo = default;
         status = _locationService.status;
 
         if (!_locationService.isEnabledByUser) return false;
@@ -52,9 +52,7 @@ public class GPSModule : MonoBehaviour
             case LocationServiceStatus.Initializing:
                 return false;
             default:
-                LocationInfo lInfo = _locationService.lastData;
-                latitude = lInfo.latitude;
-                longitude = lInfo.longitude;
+                locationInfo = _locationService.lastData;
                 return true;
         }
     }

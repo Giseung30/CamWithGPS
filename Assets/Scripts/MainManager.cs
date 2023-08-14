@@ -31,9 +31,9 @@ public class MainManager : MonoBehaviour
     private void Update()
     {
         GPSModule gps = GPSModule.instance;
-        if (gps.GetGPSLocation(out LocationServiceStatus status, out float latitude, out float longitude))
-            gpsText.text = $"status : {status}, latitude : {latitude}, longitude : {longitude}";
+        if (gps.GetGPSLocation(out LocationServiceStatus status, out LocationInfo locationInfo))
+            gpsText.text = $"status : {status}, latitude : {locationInfo.latitude}, longitude : {locationInfo.longitude}, altitude : {locationInfo.altitude}";
         else
-            gpsText.text = $"Available GPS";
+            gpsText.text = $"Invaild GPS";
     }
 }
