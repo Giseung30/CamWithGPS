@@ -12,17 +12,20 @@
 ## ⏲ 개발 기간
 + 2023.08.06 ~ 2023.08.16
   
-## 📝 설계
-+ 크게 `CameraModule.cs`, `GPSModule.cs`를 작성한다.
-+ 두 스크립트를 활용하는 스크립트를 작성한다.
-+ 만약, 기기에 권한 요청이 필요하다면 한번에 관리하는 스크립트를 작성한다.
-+ 안드로이드 기기에서 테스트할 것을 고려해 Game 화면에 최대한 디버깅 정보를 표시한다.
+## 📌 개발 내용
++ 핵심 스크립트는 `GPSModule.cs`, `WebCamModule.cs`이다.
+    + GPS 모듈은 ***GetGPSLocation*** 함수로 위도와 경도 값을 받아올 수 있다.
+    + 카메라는 Canvas 상의 ***RawImage*** 컴포넌트를 통하여 나타난다.
++ 이 모듈들은 권한 요청이 필요하므로, 권한을 통괄하는 스크립트인 `PermissionModule.cs`를 작성했다.
+    + 요청하고자 하는 권한을 따로 설정할 수 있고, 허용된 권한은 콜백 함수의 파라미터로 구분할 수 있다.
++ 권한 획득 후, 실행되는 콜백 함수를 연동하기 위해 `MainManager.cs` 스크립트를 작성했다.
+    + GPS의 경도, 위도 값을 표시하기 위한 코드도 추가되어있다.
 
-## 📋 과정
+<div align="center">
+  <img width="75%" height="75%" src="https://github.com/Giseung30/Camera_and_GPS/assets/60832219/4b1de652-dd99-46a7-8950-fd20b56137e3"/>
+</div>
 
 ## 📷 결과
 
-## ✔ 후기
-
-## 🔗 관련 링크
+## 🔗 링크
 + [Unity] 안드로이드(Android) 카메라 연동하기 : **https://giseung.tistory.com/42**
