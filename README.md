@@ -26,6 +26,6 @@
 </div>
 
 ## 📷 결과
-
+[준비중]
 ## 🔗 링크
 + [Unity] 안드로이드(Android) 카메라 연동하기 : **https://giseung.tistory.com/42**
