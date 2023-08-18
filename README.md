@@ -27,7 +27,7 @@
 
 ## 🎬 미리보기
 <div align="center">
-  <img width="25%" height="25%" src="https://github.com/Giseung30/Camera_and_GPS/assets/60832219/fc69b8c8-2efc-4991-9d9b-629b15fe29fe"/>
+  <img width="30%" height="30%" src="https://github.com/Giseung30/Camera_and_GPS/assets/60832219/fc69b8c8-2efc-4991-9d9b-629b15fe29fe"/>
 </div>
 
 ## 🔗 링크
