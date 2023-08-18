@@ -25,7 +25,10 @@
   <img width="75%" height="75%" src="https://github.com/Giseung30/Camera_and_GPS/assets/60832219/4b1de652-dd99-46a7-8950-fd20b56137e3"/>
 </div>
 
-## 📷 결과
-[준비중]
+## 🎬 미리보기
+<div align="center">
+  <img width="25%" height="25%" src="https://github.com/Giseung30/Camera_and_GPS/assets/60832219/fc69b8c8-2efc-4991-9d9b-629b15fe29fe"/>
+</div>
+
 ## 🔗 링크
 + [Unity] 안드로이드(Android) 카메라 연동하기 : **https://giseung.tistory.com/42**
