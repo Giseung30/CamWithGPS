@@ -32,3 +32,4 @@
 
 ## 🔗 링크
 + [Unity] 안드로이드(Android) 카메라 연동하기 : **https://giseung.tistory.com/42**
++ [Unity] GPS 기능으로 위도와 경도 불러오기 : **https://giseung.tistory.com/43**
